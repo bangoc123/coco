@@ -3,6 +3,8 @@ import passport from 'passport';
 import cors from 'cors';
 // import User from './../db/User';
 import { Issue, User } from '../db/models';
+import SocketManager from './../SocketManager';
+
 
 const issuesController = express.Router();
 /**
@@ -53,10 +55,12 @@ issuesController.post('/', async (req, res) => {
             const result = await issueToSave.save();
             // Find user 
 
-
             // Board cast to client.
+            const socketManager = new SocketManager();
+            socketManager.io.emit('IssuesCreated', {
+              result
+            });
 
-            
             res.status(200).json(result);
         } catch (error) {
             res.status(500).json({
