@@ -11,7 +11,8 @@ import {
     issuesController,
     identityController,
     adminController,
-    actionsController
+    actionsController,
+    usersController,
 } from './controllers';
 
 const express = require('express')
@@ -40,6 +41,7 @@ app.use('/issues', issuesController);
 app.use('/identity', identityController);
 app.use('/admin', adminController);
 app.use('/actions', actionsController);
+app.use('/users', usersController);
 
 
 // Set up CORS 
