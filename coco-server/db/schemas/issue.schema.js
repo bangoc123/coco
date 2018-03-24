@@ -1,4 +1,4 @@
-import { Schema } from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
 import sha256 from 'sha256';
 
 const issueSchema = new Schema({

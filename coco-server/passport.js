@@ -12,7 +12,7 @@ export const applyPassportStrategy = (passport) => {
       if (err) {
         return done(err, false);
       }
-      if (user) {
+      if (admin) {
         return done(null, {
           username: admin.username,
           _id: admin[underscoreId],

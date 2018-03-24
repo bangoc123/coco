@@ -2,6 +2,7 @@ import { config, underscoreId } from './global';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import passport from 'passport';
+import cors from 'cors';
 import { applyPassportStrategy } from './passport';
 
 
@@ -9,6 +10,7 @@ import {
     issuesController,
     identityController,
     adminController,
+    actionsController
 } from './controllers';
 
 const express = require('express')
@@ -36,7 +38,12 @@ app.get('/', (req, res) => res.send('Hello World!'))
 app.use('/issues', issuesController);
 app.use('/identity', identityController);
 app.use('/admin', adminController);
+app.use('/actions', actionsController);
 
+
+// Set up CORS 
+
+app.use(cors());
 
 app.listen(port, () => {
     mongoose.connect(mongoDBUri).then(() => {

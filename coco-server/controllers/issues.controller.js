@@ -1,5 +1,6 @@
 import express from 'express';
 import passport from 'passport';
+import cors from 'cors';
 // import User from './../db/User';
 import { Issue, User } from '../db/models';
 
@@ -15,11 +16,16 @@ issuesController.get('/', async (req, res) => {
   const limit = parseInt(query.limit) || 0;
   try {
     const total = await Issue.count();
-    console.log('========total Issues', total);
     const issues = await Issue
       .find({})
+      .populate({
+        path: 'user',
+        select: 'username',
+      })
       .skip(skip)
-      .limit(limit);
+      .limit(limit)
+      .lean()
+      .exec();
     res.status(200).json({
       skip,
       limit,
@@ -35,9 +41,7 @@ issuesController.get('/', async (req, res) => {
 });
 
 issuesController.post('/', async (req, res) => {
-    console.log('=====req.body', req.body);
-    const { issue } = req.body;
-    console.log('------issues', issue);
+    const { issue, uuid } = req.body;
     if (!issue) {
         res.status(400).json({
           code: 400,
@@ -47,16 +51,15 @@ issuesController.post('/', async (req, res) => {
         try {
             const issueToSave = new Issue(issue);
             const result = await issueToSave.save();
+            // Find user 
 
-            // Create user.
-            // const userToSave = new User()
-            
+
             res.status(200).json(result);
         } catch (error) {
             res.status(500).json({
             code: 500,
             message: error,
-            });
+          });
         }
     }
 });
