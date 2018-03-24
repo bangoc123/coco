@@ -1,0 +1,49 @@
+.height-100 {
+    height: 100%;
+}
+
+.issue-image-container {
+    background: url('http://www.doctorhouses.vn/wp-content/uploads/2018/01/n%C6%B0%E1%BB%9Bc-%C3%B4-nhi%E1%BB%85m.jpg');
+    height: 100%;
+    background-repeat: none;
+    background-size: cover;
+}
+
+.color-blue {
+    background: rgb(66, 179, 244);
+}
+
+.issue {
+    padding: 10px;
+    border-bottom: 1px solid #D2D2D2;
+    height: 140px;
+}
+
+.issue-information--row-1, .issue-information--row-2 {
+    height: 60px;
+    display: flex;
+}
+
+.issue-information--smells, .issue-information--profile, 
+.issue-information--colors, .issue-information--location {
+    width: 50%;
+}
+
+.issue-information--smells, .issue-information--colors,
+.issue-information--location, .issue-profile-name, .issue-information--profile {
+    display: flex;
+    align-items: center;
+}
+
+.issue:hover {
+    background: #ececec;
+    cursor: pointer;
+}
+
+.issue-profile-image {
+    height: 60px;
+    width: 60px;
+    background: #D2D2D2;
+    display: inline-block;
+    border-radius: 30px;
+}
