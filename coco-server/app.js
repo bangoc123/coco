@@ -5,6 +5,7 @@ import passport from 'passport';
 import cors from 'cors';
 import socket from 'socket.io';
 import { applyPassportStrategy } from './passport';
+import SocketManager from './SocketManager';
 
 import {
     issuesController,
@@ -55,6 +56,7 @@ const server = app.listen(port, () => {
 // Initialize Socket IO.
 const io = socket(server);
 
-io.on('connection', (client) => {
-    console.log('Connecting...');
-})
+global.io = io;
+
+
+const socketManager = new SocketManager(io);
