@@ -2,6 +2,7 @@ import express from 'express';
 import passport from 'passport';
 import { check, validationResult } from 'express-validator/check';
 import { Action } from '../db/models';
+import { underscoreId } from '../global';
 
 const actionsController = express.Router();
 /**
@@ -34,6 +35,15 @@ actionsController.post('/',
             const { content, issues, name } = req.body;
             const action = new Action({ content, issues, name });
             await action.save();
+            // Board cast to users.
+            
+            Action.findOne(action[underscoreId])
+                .populate({ path: 'issues', select: 'user', populate: { path: 'user' } }).then((action) => {
+                    console.log('=======action', action);
+                    // Get list of users overhere
+                    const issuesID = action.issues.map(issue => issue.user.uuid);
+                    console.log('========issuesID', issuesID);
+                });          
             res.status(200).json({
                 action,
             });
