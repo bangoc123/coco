@@ -3,8 +3,8 @@ import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import passport from 'passport';
 import cors from 'cors';
+import socket from 'socket.io';
 import { applyPassportStrategy } from './passport';
-
 
 import {
     issuesController,
@@ -45,9 +45,16 @@ app.use('/actions', actionsController);
 
 app.use(cors());
 
-app.listen(port, () => {
+const server = app.listen(port, () => {
     mongoose.connect(mongoDBUri).then(() => {
         console.log('Conneted to mongoDB at port 27017');
       });
     console.log('Example app listening on port 3000!');
+})
+
+// Initialize Socket IO.
+const io = socket(server);
+
+io.on('connection', (client) => {
+    console.log('Connecting...');
 })

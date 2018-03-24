@@ -2,6 +2,7 @@ import mongoose, { Schema } from 'mongoose';
 import sha256 from 'sha256';
 
 const issueSchema = new Schema({
+  _id: Schema.Types.ObjectId,
   issue_type: { type: Number, default: 1 },
   lat: { type: Number },
   lng: { type: Number },

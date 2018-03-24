@@ -47,4 +47,52 @@ actionsController.post('/',
     }
 });
 
+actionsController.get('/', passport.authenticate('jwt', { session: false }), async (req, res) => {
+    const { query } = req;
+    const skip = parseInt(query.skip) || 0;
+    const limit = parseInt(query.limit) || 0;
+    try {
+      const total = await Action.count();
+      const actions = await Action
+        .find({})
+        .populate({
+          path: 'issues',
+        })
+        .skip(skip)
+        .limit(limit)
+        .lean()
+        .exec();
+      res.status(200).json({
+        skip,
+        limit,
+        total,
+        data: actions,
+      });
+    } catch (error) {
+      res.status(500).json({
+        code: 500,
+        message: error,
+      });
+    }
+});
+
+
+actionsController.get('/:id', passport.authenticate('jwt', { session: false }), async (req, res) => {
+    const actionId = req.params.id;
+    
+    try {   
+        const action = await Action.findById(actionId).populate({
+            path: 'issues',
+        }).lean().exec();
+        res.status(200).json(action);
+    } catch(e) {
+        console.log('======e', e);
+        res.status(500).json({
+            code: 500,
+            message: e,
+        });
+    }
+
+});
+
 export default actionsController;
