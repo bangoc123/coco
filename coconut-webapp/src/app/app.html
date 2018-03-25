@@ -1,0 +1,14 @@
+<ion-menu [content]="content" swipeEnabled="false">
+  <ion-content>
+    <ion-list>
+      <ion-item menuClose *ngFor="let p of pages" (click)="openPage(p)">
+        {{p.title}}
+      </ion-item>
+      <ion-item ion-item (click)="logout()">logout</ion-item>
+    </ion-list>
+  </ion-content>
+
+</ion-menu>
+
+<!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
+<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>

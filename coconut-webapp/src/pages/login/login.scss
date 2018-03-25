@@ -1,0 +1,25 @@
+page-login {
+  .login-box {
+    display: table;
+    width: 300px;
+    height: 300px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -220px 0 0 -150px;
+    .btn-login {
+      display: table;
+      margin: 20px auto 0
+    }
+    .btn-forgot {
+      display: table;
+      margin: 10px auto
+    }
+    img {
+      display: table;
+      margin: 0 auto 20px;
+      height: 100px;
+      width: 100px
+    }
+  }
+}

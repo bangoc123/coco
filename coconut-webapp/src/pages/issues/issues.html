@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Coconut</ion-title>
+    <ion-buttons end>
+      <button ion-button clear (click)="openLogin()" *ngIf="login==false">
+        sign-in/up
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content>
+  <div id="map" style="width:100%; height:100%;"></div>
+  <div class="issue-list">
+    <ion-segment [(ngModel)]="listStuff">
+      <ion-segment-button value="issues">
+        Issues
+      </ion-segment-button>
+      <ion-segment-button value="actions">
+        Actions
+      </ion-segment-button>
+    </ion-segment>
+    <ion-scroll scrollY="true" *ngIf="listStuff == 'issues'">
+      <ion-list>
+        <ion-item class="issue-box" *ngFor="let issue of issueList">
+          <div class="issue-ctn" (click)="flyToIssue(issue)">
+            <h4>Description: {{issue.text}}</h4>
+            <div class="user-avatar">
+              <img [src]='issue.user.avatar'>
+              <p>{{issue.user.name}}</p>
+            </div>
+          </div>
+          <img [src]='issue.image' (click)="viewImage(issue.image)">
+        </ion-item>
+      </ion-list>
+    </ion-scroll>
+    <ion-scroll scrollY="true" *ngIf="listStuff == 'actions'">
+      <ion-list>
+        <ion-item class="action-box" *ngFor="let action of actionList" (click)="addpolygon(action.coordinates_inverse)">
+          <h4>{{ action.name }}</h4>
+        </ion-item>
+      </ion-list>
+    </ion-scroll>
+    <button ion-button full class="btn-suggest" color="{{(enableSummitAction)?'danger':'gray'}}" (click)="openSuggestIssue()">Draw a shape to suggest an action</button>
+  </div>
+</ion-content>
