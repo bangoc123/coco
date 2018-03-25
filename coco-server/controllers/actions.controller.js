@@ -23,7 +23,10 @@ actionsController.post('/',
             .withMessage('CONTENT_IS_EMPTY'),
         check('name')
             .exists()
-            .withMessage('NAME_IS_EMPTY')
+            .withMessage('NAME_IS_EMPTY'),
+        check('area')
+            .exists()
+            .withMessage('AREA_IS_EMPTY')
 ],  async (req, res) => {
     const errorsAfterValidation = validationResult(req);
     if (!errorsAfterValidation.isEmpty()) {
@@ -32,8 +35,8 @@ actionsController.post('/',
         });
     } else {
         try {
-            const { content, issues, name } = req.body;
-            const action = new Action({ content, issues, name });
+            const { content, issues, name, area } = req.body;
+            const action = new Action({ content, issues, name, area });
             await action.save();
             // Board cast to users.
             
@@ -57,7 +60,7 @@ actionsController.post('/',
     }
 });
 
-actionsController.get('/', passport.authenticate('jwt', { session: false }), async (req, res) => {
+actionsController.get('/', async (req, res) => {
     const { query } = req;
     const skip = parseInt(query.skip) || 0;
     const limit = parseInt(query.limit) || 0;
@@ -87,7 +90,7 @@ actionsController.get('/', passport.authenticate('jwt', { session: false }), asy
 });
 
 
-actionsController.get('/:id', passport.authenticate('jwt', { session: false }), async (req, res) => {
+actionsController.get('/:id', async (req, res) => {
     const actionId = req.params.id;
     
     try {   

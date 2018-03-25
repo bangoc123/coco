@@ -56,13 +56,14 @@ usersController.get('/', async (req, res) => {
         const { uuid ,name, email, avatar } = req.body;
         try {
             // Add user to database
-            const user = new User({ uuid ,username, email, avatar });
+            const user = new User({ uuid ,name, email, avatar });
             await user.save();
             res.status(200).json({
                 user,
             });
             
         } catch (error) {
+            console.log('error', error);
             res.status(500).send({
                 code: 500,
                 message: error,

@@ -22,7 +22,6 @@ issuesController.get('/', async (req, res) => {
       .find({})
       .populate({
         path: 'user',
-        select: 'username',
       })
       .skip(skip)
       .limit(limit)
@@ -44,6 +43,7 @@ issuesController.get('/', async (req, res) => {
 
 issuesController.post('/', async (req, res) => {
     const { issue, uuid } = req.body;
+    console.log('======req.body==', req.body);
     if (!issue) {
         res.status(400).json({
           code: 400,

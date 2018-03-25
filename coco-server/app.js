@@ -20,7 +20,6 @@ const app = express()
 
 const { port, mongoDBUri } = config.env.dev;
 
-
 // Set up bodyParser
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -42,7 +41,6 @@ app.use('/identity', identityController);
 app.use('/admin', adminController);
 app.use('/actions', actionsController);
 app.use('/users', usersController);
-
 
 // Set up CORS 
 
