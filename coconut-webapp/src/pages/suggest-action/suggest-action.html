@@ -1,0 +1,15 @@
+<ion-content>
+  <h1 style="padding-left:16px">Submit action</h1>
+  <ion-list>
+    <ion-item>
+      <ion-label stacked>Name</ion-label>
+      <ion-input type="text" [(ngModel)]="action.name"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>What to do?</ion-label>
+      <ion-input type="text" [(ngModel)]="action.content"></ion-input>
+    </ion-item>
+  </ion-list>
+  <button ion-button outline style="margin-left:16px" (click)="submitAction()">Submit</button>
+  <button ion-button outline color="dark" style="margin-left:10px" (click)="cancel()">Cancel</button>
+</ion-content>

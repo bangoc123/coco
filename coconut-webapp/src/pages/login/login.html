@@ -1,0 +1,30 @@
+<ion-content>
+  <div class="login-box">
+    <img src="assets/imgs/logo.png" alt="">
+    <div class="input-box">
+      <ion-list>
+        <ion-item *ngIf="mode == 'signup'">
+          <ion-label stacked>Email</ion-label>
+          <ion-input type="text" [(ngModel)]="user.email"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label stacked>Username</ion-label>
+          <ion-input type="text" [(ngModel)]="user.username"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label stacked>Password</ion-label>
+          <ion-input type="password" [(ngModel)]="user.password"></ion-input>
+        </ion-item>
+        <ion-item *ngIf="mode == 'signup'">
+          <ion-label stacked>Confirm password</ion-label>
+          <ion-input type="password" [(ngModel)]="user.cpass"></ion-input>
+        </ion-item>
+      </ion-list>
+    </div>
+    <button ion-button class="btn-login" (click)="login()">{{(mode=='signup')? 'Sign-up':'Sign-in'}}</button>
+    <button ion-button clear color="dark" class="btn-forgot" *ngIf="mode != 'signup'">forgot your pass?</button>
+    <button ion-button clear class="btn-forgot" (click)="switchMode()">{{(mode=='signup')? 'I already have an account':"Don't have an account yet?"}}</button>
+  </div>
+
+</ion-content>
