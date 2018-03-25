@@ -111,10 +111,10 @@ def message_handler(event):
             # in create issue
             get_user(uid).in_create_issue = True
             get_user(uid).loc = {"lat": lat, "lon": lon}
-            page.send(uid, "Your location had been record.")
+            page.send(uid, "Receive your location. Thanks. Please take the photo 📷 of the problem:")
         elif type_ == "image":
             url = payload["url"]
-            page.send(uid, "Your image had been record.")
+            page.send(uid, "Your photo recorded. Next, please send the description 📃 of the problem.")
             # in create issue
             get_user(uid).in_create_issue = True
             get_user(uid).image = url
@@ -123,23 +123,20 @@ def message_handler(event):
     elif event.message_text:
         text = event.message.get('text')
 
-        if text == "hi":
-            page.send(uid, "I got it")
-            return
+        # if text == "hi":
+        #     page.send(uid, "I got it")
+        #     return
             
         if get_user(uid).in_create_issue == True:
             get_user(uid).text = text
-            page.send(uid, "I got it")
+            page.send(uid, "Your voice's raised. Recorded submit. ☑️")
+            page.send(uid, "People in charge will contact you soon. 😇")
             # Create issue
             create_issue(get_user(uid))
         else:
             # FALLBACK HERE
-            page.send(uid, "What?")
+            page.send(uid, "I'm just born 2 hour ago. I dont understand very much, but I'm still learn. 🏋️ Thanks.")
 
-
-# @page.handle_postback
-# def postback_handler(event):
-#     payload = event.postback_payload
 
 @page.callback(['START_PAYLOAD'])
 def start_callback(payload, event):
@@ -149,17 +146,22 @@ def start_callback(payload, event):
     uid = event.sender_id
     check_user(uid)
 
-    page.send(uid, "Hello! I will help you raise your voice.")
+    page.send(uid, "Hello! I will help you raise your voice. ⚽️")
     page.send(uid, "All I need is your location, your photo and a small description.")
+    page.send(uid, "First, I need your location, please send me one. ⛳️")
 
 
-@page.after_send
-def after_send(payload, response):
-    """:type payload: fbmq.Payload"""
-    print("complete")
+# @page.handle_postback
+# def postback_handler(event):
+#     payload = event.postback_payload
+
+# @page.after_send
+# def after_send(payload, response):
+#     """:type payload: fbmq.Payload"""
+#     print("complete")
 
 
 if __name__ == "__main__":
-    page.greeting("Welcome!")
+    page.greeting("Welcome! I'm Coconut Project 🤖. Can I help you anything?")
     page.show_starting_button("START_PAYLOAD")
     app.run(port=3000)
